@@ -16,6 +16,35 @@ python app.py
 
 The API runs on `http://127.0.0.1:5000`. The database is created and seeded on first run.
 
+## Run with Docker
+
+Both versions run as containers: this API (`api`) and the in-class version in `correction/` (`correction`).
+
+```
+copy .env.example .env    # then set your own values
+docker compose up --build
+```
+
+- API: `http://localhost:5000`
+- In-class version: `http://localhost:5001/student`
+
+The SQLite database lives in the `school-data` volume, so it survives restarts. `docker compose down -v` deletes it.
+
+## Configuration
+
+Everything is set through environment variables (or `.env`):
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `JWT_SECRET` | required | token signing key, at least 32 characters |
+| `ADMIN_PASSWORD`, `READER_PASSWORD` | required | passwords of the seeded users |
+| `TOKEN_TTL_HOURS` | `5` | token lifetime |
+| `HOST` | `127.0.0.1` (`0.0.0.0` in Docker) | bind address |
+| `PORT` | `5000` | port inside the process |
+| `FLASK_DEBUG` | `0` | Flask debug mode |
+| `DB_PATH` | `school.db` (`/data/school.db` in Docker) | SQLite file |
+| `API_PORT`, `CORRECTION_PORT` | `5000`, `5001` | host ports published by docker compose |
+
 ## Endpoints
 
 | Method | Path | Role |

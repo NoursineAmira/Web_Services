@@ -1,0 +1,10 @@
+.env
+.git
+.gitignore
+.vscode/
+venv/
+__pycache__/
+*.db
+postman/
+.postman/
+correction/
