@@ -6,6 +6,7 @@ from werkzeug.exceptions import HTTPException
 from werkzeug.security import check_password_hash
 
 from auth import TOKEN_TTL, create_token, require_role
+from config import DEBUG, HOST, PORT
 from db import INSERT_REPORT, INSERT_STUDENT, close_db, get_db, init_db
 from validation import (
     ApiError,
@@ -241,4 +242,4 @@ def handle_unexpected_error(error):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host=HOST, port=PORT, debug=DEBUG)

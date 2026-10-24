@@ -1,14 +1,11 @@
 import sqlite3
 from contextlib import closing
-from pathlib import Path
 
 from flask import g
 from werkzeug.security import generate_password_hash
 
-from config import require_env
+from config import DB_PATH, require_env
 from seed import REPORTS, STUDENTS, USERS
-
-DB_PATH = Path(__file__).with_name("school.db")
 
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS students (
@@ -55,6 +52,7 @@ VALUES (:id, :student_id, :title, :type, :k1, :k2, :k3, :release_date)
 
 
 def connect():
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")

@@ -4,11 +4,11 @@ from functools import wraps
 import jwt
 from flask import g, request
 
-from config import JWT_SECRET
+from config import JWT_SECRET, TOKEN_TTL_HOURS
 from validation import ApiError
 
 ALGORITHM = "HS256"
-TOKEN_TTL = timedelta(hours=5)
+TOKEN_TTL = timedelta(hours=TOKEN_TTL_HOURS)
 
 
 def create_token(username, role):
